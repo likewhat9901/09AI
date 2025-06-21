@@ -15,7 +15,7 @@ print(sequence_array)
 print(sequence_array.dtype, sequence_array.shape)
 
 print('zeros()로 생성')
-# 3행 2열인 정수타입의 2차원 배열 생성
+# 0으로 초기화된 3행 2열인 정수타입의 2차원 배열 생성
 zero_array = np.zeros((3,2), dtype='int32')
 print(zero_array)
 print(zero_array.dtype, zero_array.shape)
