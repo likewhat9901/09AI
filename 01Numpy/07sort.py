@@ -36,11 +36,25 @@ print('내림차순정렬', sort_array1_desc)
 #--------------------------------------
 # 2차원 배열 생성
 array2d = np.array([[8,12],[7,1]])
+print('array2d\n', array2d)
 
 # Row(행) 방향으로 정렬 : 축옵션 0
-sort_array2d_axis0 = np.sort(array2d, axis=0)
+sort_array2d_axis0 = np.sort(array2d, axis=0) # 행방향으로 정렬(세로, 위아래)
 print('sort_array2d_axis0\n', sort_array2d_axis0)
+#  [[ 7  1]
+#  [ 8 12]]
+
+# Row(행) 방향으로 정렬 : 축옵션 0
+sort_array2d_axis0 = np.sort(array2d, axis=0)[::-1] # 행방향으로 내림차순 정렬 / [::-1] : 행순서 뒤집기(위아래 뒤집기)
+print('sort_array2d_axis0_desc\n', sort_array2d_axis0)
 
 # Column(열) 방향으로 정렬 : 축옵션 1
-sort_array2d_axis1 = np.sort(array2d, axis=1)
+sort_array2d_axis1 = np.sort(array2d, axis=1) # 열방향으로 정렬(가로, 좌우)
 print('sort_array2d_axis1\n', sort_array2d_axis1)
+#  [[ 8 12]
+#  [ 1  7]]
+
+sort_array2d_axis1 = np.sort(array2d, axis=1)[:, ::-1] # 열방향으로 내림차순 정렬 / [:, ::-1] : 열순서 뒤집기(좌우 뒤집기)
+print('sort_array2d_axis1_desc\n', sort_array2d_axis1)
+#  [[ 8 12]
+#  [ 1  7]]
