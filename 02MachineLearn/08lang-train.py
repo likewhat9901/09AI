@@ -5,6 +5,11 @@ import glob, os.path, re, json
 def check_freq(fname):
     # 매개변수로 전달된 파일경로를 통해 파일명 확인
     name = os.path.basename(fname)
+    print('name', name)
+    '''
+    fname : 전체 경로를 담고 있는 문자열 (예: "./resMnist/train.csv")
+    os.path.basename(...) : 경로에서 맨 마지막 파일 이름만 뽑아냄
+    '''
     '''
     파일명은 en-1.txt 와 같은 형식을 가지고 있다.
     정규표현식을 통해 파일명 앞부분의 단어를 얻어온다.
@@ -15,22 +20,48 @@ def check_freq(fname):
     즉, en, fr 등의 문자열이 lang에 저장됨.
     '''
     lang = re.match(r'^[a-z]{2,}', name).group()
+    '''
+    re.match(...)는 문자열의 처음부터 정규식에 맞는 부분을 찾음.
+    문자열의 시작부터 정규식에 처음 매치되는 “한 덩어리”만 찾아서 반환.
+    즉: name에서 맨 앞에 있는 소문자 알파벳 2글자 이상을 찾아라.
+    
+    예시)
+    name = "eng_articles_2024.csv"
+    lang = re.match(r'^[a-z]{2,}', name).group()
+    print(lang)  # 출력: eng
+    
+    만약 매치되는 게 없으면?
+    re.match(...)가 None을 반환해서 .group()을 하면 에러 발생
+    =>  m = re.match(r'^[a-z]{2,}', name)
+        if m:
+            lang = m.group()
+        else:
+            lang = "unknown"
+    '''
 
     # 매개변수로 전달된 파일의 경로를 통해 읽기모드로 오픈
     with open(fname, "r", encoding="utf-8") as f:
+        ''' fname에 들어 있는 파일 경로를 열어서 text에 전체 문자열을 담음 '''
         text = f.read()
     # 전체를 소문자로 변환
     text = text.lower()
     # 알파벳은 모두 26글자이므로 이에 해당하는 리스트 생성
     cnt = [0 for n in range(0, 26)]
+    '''ord()
+    : 문자 하나를 넣으면, 해당 문자의 유니코드(또는 ASCII) 정수 값을 반환'''
     code_a = ord("a") # 'a'의 ASCII 코드 값(97)
-    code_z = ord("z") # 'z'의 ASCII 코드 값
+    code_z = ord("z") # 'z'의 ASCII 코드 값(122)
     # 알파벳 출현 횟수 구하기
     for ch in text:
         n = ord(ch)
         # 출현하는 알파벳에 해당하는 인덱스의 값을 1 증가시킨다.
         if code_a <= n <= code_z:
             cnt[n - code_a] += 1
+    '''
+    ✅ 문자 하나씩 반복하면서 a~z인지 확인하고
+    → 해당 알파벳의 인덱스 위치에 +1
+    예: 'c' → ord('c') = 99, 99 - 97 = 2 → cnt[2] += 1
+    '''
 
     # 정규화하기
     total = sum(cnt)
