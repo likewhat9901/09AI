@@ -80,7 +80,12 @@ def load_files(path):
     '''
     glob.glob(path) 기본 개념
         glob: 파일 경로나 이름에서 와일드카드(예: *, ?)를 이용해서 일치하는 파일들을 찾는 모듈
-        glob.glob(): 해당 패턴에 맞는 모든 파일 경로를 리스트로 반환
+        glob.glob(): 해당 패턴에 맞는 모든 파일 경로를 문자열 리스트로 반환.
+        현재 작업 디렉토리 기준.
+        ex. ['a.txt', 'b.txt']
+    
+    ** 패턴을 사용하면 재귀적으로 하위 디렉토리까지 검색할 수 있습니다. 
+    이 경우에는 glob.glob('**/*.txt', recursive=True)처럼 recursive=True를 지정해야 합니다.
     '''
     # 파일의 개수만큼 반복
     for fname in file_list:
